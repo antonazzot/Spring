@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+>
+
+    <bean id="lord" class="springbackwell.model.Attainment">
+        <constructor-arg name="id" value="1"/>
+        <constructor-arg name="attainmentName" value="lord"/>
+    </bean>
+    <bean id="thunderer" class="springbackwell.model.Attainment">
+        <constructor-arg name="id" value="2"/>
+        <constructor-arg name="attainmentName" value="thunderer"/>
+    </bean>
+    <bean id="killer" class="springbackwell.model.Attainment">
+        <constructor-arg name="id" value="3"/>
+        <constructor-arg name="attainmentName" value="killer"/>
+    </bean>
+    <bean id="medic" class="springbackwell.model.Attainment">
+        <constructor-arg name="id" value="4"/>
+        <constructor-arg name="attainmentName" value="medic"/>
+    </bean>
+
+
+    <bean id="myh" class="springbackwell.model.Player" >
+        <constructor-arg name="id" value="1"/>
+        <constructor-arg name="login" value="myhin_XD"/>
+        <constructor-arg name="name" value="Anton"/>
+        <constructor-arg name="attainments">
+            <set>
+                <ref bean="killer"/>
+                <ref bean="lord"/>
+            </set>
+        </constructor-arg>
+    </bean>
+
+    <bean id="lis" class="springbackwell.model.Player">
+        <property name="id" value="2"/>
+        <property name="login" value="Lis"/>
+        <property name="name" value="Sergey"/>
+        <property name="attainments">
+            <set>
+                <ref bean="medic"/>
+                <ref bean="thunderer"/>
+            </set>
+        </property>
+    </bean>
+
+    <bean id="admin" class="springbackwell.model.GameAdmin">
+        <property name="id" value="0"/>
+        <property name="login" value="Dark_Angel"/>
+        <property name="name" value="Viktor"/>
+        <property name="attainments">
+            <set>
+                <ref bean="medic"/>
+                <ref bean="thunderer"/>
+                <ref bean="lord"/>
+                <ref bean="killer"/>
+            </set>
+        </property>
+    </bean>
+
+    <bean id="stalkergame" class="springbackwell.model.Game">
+        <constructor-arg name="id" value="10"/>
+        <constructor-arg name="name" value="S.T.A.L.K.E.R."/>
+        <property name="players">
+            <map >
+                <entry key-ref="lis" >
+                   <set >
+                       <ref bean="medic"/>
+                       <ref bean="thunderer"/>
+                   </set>
+                </entry>
+                <entry key-ref="myh">
+                    <set >
+                        <ref bean="killer"/>
+                        <ref bean="lord"/>
+                    </set>
+                </entry>
+            </map>
+        </property>
+        <property name="gameAdmin" ref="admin"/>
+    </bean>
+
+
+
+</beans>
