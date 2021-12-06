@@ -10,7 +10,6 @@
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
        default-autowire="byName"
-<!--       default-autowire="byType"-->
 >
     <context:property-placeholder location="players.properties, game.properties,
      attainments.properties, admin.function.properties"/>
@@ -39,7 +38,7 @@
 
 
 
-    <bean id="admin" class="springbackwell.model.GameAdmin" init-method="initAdmin"
+    <bean id="admin" class="springbackwell.model.GameAdmin" primary="true" init-method="initAdmin"
           c:id="${admin.id}" c:name="${admin.name}" c:login="${admin.login}">
        <property name="attainments" value="#{${admin.attainment}}" />
         <property name="function"  value="#{${admin.functions}}"/>
@@ -56,7 +55,7 @@
       <entry key="300" value="RestartGame"/>
   </util:map>
 
-    <bean id="stalkergame" class="springbackwell.model.Game" init-method="initGame" destroy-method="destroyGame"
+    <bean id="stalkergame" class="springbackwell.model.Game" autowire="byType"  init-method="initGame" destroy-method="destroyGame"
           c:id="${stalker.id}" c:name="${stalker.name}">
 <!--        <property name="gameAdmin" ref="admin"/>-->
         <property name="players" value="#{${stalker.players.prop}}" />

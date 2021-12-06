@@ -15,8 +15,8 @@ public class Game {
     private String name;
 
     private Map <Player, Set<Attainment>> players;
-//    private GameAdmin gameAdmin;
-      private Player myh;
+    private Player gameAdmin;
+//      private Player myh;
 
     public Game(int id, String name, Map<Player, Set<Attainment>> players) {
         this.id = id;
