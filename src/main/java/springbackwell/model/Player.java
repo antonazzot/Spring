@@ -2,6 +2,7 @@ package springbackwell.model;
 
 import lombok.*;
 
+import java.util.Locale;
 import java.util.Set;
 
 @AllArgsConstructor

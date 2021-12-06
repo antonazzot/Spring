@@ -23,8 +23,9 @@ public class Game {
     private Map <Player, Set<Attainment>> players;
     @Autowired
 //    @AdminQualifier
-    @CustomStringQualifier(name = "Serg")
-    @CustomClassQualifiers(clazz = Player.class)
+//    @CustomStringQualifier(name = "MMY")
+//    @CustomClassQualifiers(clazz = Player.class)
+    @AdminQualifier
     private Player gameAdmin;
 //      private Player myh;
 
