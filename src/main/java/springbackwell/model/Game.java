@@ -27,4 +27,12 @@ public class Game {
         this.id = id;
         this.name = name;
     }
-}
+
+    public void initGame () {
+        System.out.println("Game: " + this.getName() + "was started");
+    }
+
+    public void destroyGame () {
+        System.out.println("Game: " + this.getName() + "was destroy");
+    }
+ }

@@ -31,7 +31,7 @@ public class Player {
     }
 
     public void initPlayer () {
-        System.out.println("Player init");
+        System.out.println("Player:" + this.getName() +" " + this.getLogin() + " was connected");
     }
 
     public void destroyPlayer () {

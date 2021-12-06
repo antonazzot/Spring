@@ -11,84 +11,59 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
 >
 
-    <bean id="lord" class="springbackwell.model.Attainment">
-        <constructor-arg name="id" value="1"/>
-        <constructor-arg name="attainmentName" value="lord"/>
-    </bean>
-    <bean id="thunderer" class="springbackwell.model.Attainment">
-        <constructor-arg name="id" value="2"/>
-        <constructor-arg name="attainmentName" value="thunderer"/>
-    </bean>
-    <bean id="killer" class="springbackwell.model.Attainment">
-        <constructor-arg name="id" value="3"/>
-        <constructor-arg name="attainmentName" value="killer"/>
-    </bean>
-    <bean id="medic" class="springbackwell.model.Attainment">
-        <constructor-arg name="id" value="4"/>
-        <constructor-arg name="attainmentName" value="medic"/>
+    <bean id="lord" class="springbackwell.model.Attainment" c:id="1" c:attainmentName="lord"/>
+
+    <bean id="thunderer" class="springbackwell.model.Attainment" c:id="2" c:attainmentName="thunderer"/>
+
+    <bean id="killer" class="springbackwell.model.Attainment" c:id="3" c:attainmentName="killer" />
+
+    <bean id="medic" class="springbackwell.model.Attainment" c:id="4" c:attainmentName="medic"/>
+
+    <bean id="myh" class="springbackwell.model.Player" init-method="initPlayer" destroy-method="destroyPlayer"
+          p:id="1" p:login="myhin_XD" p:name="Anton" >
+        <property name="attainments" ref="anton.attainments"/>
     </bean>
 
+    <util:set id="anton.attainments">
+        <ref bean="killer"/>
+        <ref bean="lord"/>
+    </util:set>
 
-    <bean id="myh" class="springbackwell.model.Player" >
-        <constructor-arg name="id" value="1"/>
-        <constructor-arg name="login" value="myhin_XD"/>
-        <constructor-arg name="name" value="Anton"/>
-        <constructor-arg name="attainments">
-            <set>
-                <ref bean="killer"/>
-                <ref bean="lord"/>
-            </set>
-        </constructor-arg>
+    <bean id="lis" class="springbackwell.model.Player" init-method="initPlayer" destroy-method="destroyPlayer" p:id="2" p:login="Lis" p:name="Sergey">
+        <property name="attainments" ref="Sergey.attainments"/>
     </bean>
 
-    <bean id="lis" class="springbackwell.model.Player">
-        <property name="id" value="2"/>
-        <property name="login" value="Lis"/>
-        <property name="name" value="Sergey"/>
-        <property name="attainments">
-            <set>
-                <ref bean="medic"/>
-                <ref bean="thunderer"/>
-            </set>
-        </property>
+    <util:set id="Sergey.attainments">
+        <ref bean="medic"/>
+        <ref bean="lord"/>
+    </util:set>
+
+    <bean id="admin" class="springbackwell.model.GameAdmin" init-method="initAdmin" c:id="0" c:name="Viktor" c:login="Dark_Angel">
+        <property name="attainments" ref="admin.attainments"/>
+        <property name="function" ref="admin.function"/>
     </bean>
 
-    <bean id="admin" class="springbackwell.model.GameAdmin">
-        <property name="id" value="0"/>
-        <property name="login" value="Dark_Angel"/>
-        <property name="name" value="Viktor"/>
-        <property name="attainments">
-            <set>
-                <ref bean="medic"/>
-                <ref bean="thunderer"/>
-                <ref bean="lord"/>
-                <ref bean="killer"/>
-            </set>
-        </property>
+    <util:set id="admin.attainments">
+        <ref bean="medic"/>
+        <ref bean="thunderer"/>
+        <ref bean="lord"/>
+        <ref bean="killer"/>
+    </util:set>
+
+  <util:map id="admin.function" >
+      <entry key="100" value="Ban"/>
+      <entry key="200" value="Kill"/>
+      <entry key="300" value="RestartGame"/>
+  </util:map>
+
+    <bean id="stalkergame" class="springbackwell.model.Game" init-method="initGame" destroy-method="destroyGame" c:id="1" c:name="S/T/A/L/K/E/R"
+        p:gameAdmin="admin">
+        <property name="players" ref="stalker.players"/>
     </bean>
-
-    <bean id="stalkergame" class="springbackwell.model.Game">
-        <constructor-arg name="id" value="10"/>
-        <constructor-arg name="name" value="S.T.A.L.K.E.R."/>
-        <property name="players">
-            <map >
-                <entry key-ref="lis" >
-                   <set >
-                       <ref bean="medic"/>
-                       <ref bean="thunderer"/>
-                   </set>
-                </entry>
-                <entry key-ref="myh">
-                    <set >
-                        <ref bean="killer"/>
-                        <ref bean="lord"/>
-                    </set>
-                </entry>
-            </map>
-        </property>
-        <property name="gameAdmin" ref="admin"/>
-    </bean>
-
-
+    <util:map id="stalker.players" >
+        <entry key-ref="lis" value-ref="Sergey.attainments"/>
+        <entry key-ref="myh" value-ref="anton.attainments"/>
+        <entry key-ref="admin" value-ref="admin.attainments"/>
+    </util:map>
 
 </beans>

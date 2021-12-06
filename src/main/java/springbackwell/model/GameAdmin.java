@@ -23,4 +23,9 @@ public class GameAdmin extends Player{
     private String login;
     private Set<Attainment> attainments;
     private Map <Integer, String> function;
+
+
+    public void initAdmin () {
+        System.out.println("Game admin:" + this.getName() +" " + this.getLogin() + " was connected");
+    }
 }
