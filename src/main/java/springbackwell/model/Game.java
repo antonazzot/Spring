@@ -3,6 +3,8 @@ package springbackwell.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.Map;
 import java.util.Set;
@@ -15,6 +17,8 @@ public class Game {
     private String name;
 
     private Map <Player, Set<Attainment>> players;
+    @Autowired
+    @Qualifier("Ant")
     private Player gameAdmin;
 //      private Player myh;
 

@@ -23,8 +23,9 @@
 
     <bean id="medic" class="springbackwell.model.Attainment" c:id="4" c:attainmentName="medic"/>
 
-    <bean id="myh" class="springbackwell.model.Player" init-method="initPlayer" destroy-method="destroyPlayer"
+    <bean id="myh" class="springbackwell.model.Player"  init-method="initPlayer" destroy-method="destroyPlayer"
           p:id="${myh.id}" p:login="${myh.login}" p:name="${myh.name}" >
+        <qualifier value="Ant"/>
         <property name="attainments" value="#{${myh.attainment}}"/>
     </bean>
 
@@ -55,7 +56,7 @@
       <entry key="300" value="RestartGame"/>
   </util:map>
 
-    <bean id="stalkergame" class="springbackwell.model.Game" autowire="byType"  init-method="initGame" destroy-method="destroyGame"
+    <bean id="stalkergame" class="springbackwell.model.Game"   init-method="initGame" destroy-method="destroyGame"
           c:id="${stalker.id}" c:name="${stalker.name}">
 <!--        <property name="gameAdmin" ref="admin"/>-->
         <property name="players" value="#{${stalker.players.prop}}" />
