@@ -21,6 +21,7 @@ public class GameAdmin extends Player{
     private int id;
     private String name;
     private String login;
+    @ToString.Exclude
     private Set<Attainment> attainments;
     private Map <Integer, String> function;
 }

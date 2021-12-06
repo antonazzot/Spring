@@ -16,6 +16,7 @@ public class Player {
     private int id;
     private String name;
     private String login;
+    @ToString.Exclude
     private Set<Attainment> attainments;
 
     public Player(String name) {
