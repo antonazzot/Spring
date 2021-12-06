@@ -31,14 +31,14 @@
     <util:set id="anton.attainments" value-type="${myh.attainment}"/>
 
 
-    <bean id="lis" class="springbackwell.model.Player" init-method="initPlayer" destroy-method="destroyPlayer"
+    <bean id="lis" class="springbackwell.model.Player" autowire-candidate="false" init-method="initPlayer" destroy-method="destroyPlayer"
           p:id="${lis.id}" p:login="${lis.login}" p:name="${lis.name}">
         <property name="attainments" value="#{${lis.attainment}}"/>
     </bean>
 
 
 
-    <bean id="admin" class="springbackwell.model.GameAdmin" primary="true" init-method="initAdmin"
+    <bean id="admin" class="springbackwell.model.GameAdmin" autowire-candidate="false" init-method="initAdmin"
           c:id="${admin.id}" c:name="${admin.name}" c:login="${admin.login}">
        <property name="attainments" value="#{${admin.attainment}}" />
         <property name="function"  value="#{${admin.functions}}"/>
