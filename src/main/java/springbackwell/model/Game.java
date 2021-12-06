@@ -5,6 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import springbackwell.qualifier.AdminQualifier;
+import springbackwell.qualifier.CustomClassQualifiers;
+import springbackwell.qualifier.CustomStringQualifier;
+import springbackwell.qualifier.GameAdminQualifier;
 
 import java.util.Map;
 import java.util.Set;
@@ -18,7 +22,9 @@ public class Game {
 
     private Map <Player, Set<Attainment>> players;
     @Autowired
-    @Qualifier("Ant")
+//    @AdminQualifier
+    @CustomStringQualifier(name = "Serg")
+    @CustomClassQualifiers(clazz = Player.class)
     private Player gameAdmin;
 //      private Player myh;
 
