@@ -9,9 +9,12 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+       default-autowire="byName"
 >
+    <context:property-placeholder location="players.properties, game.properties,
+     attainments.properties, admin.function.properties"/>
 
-    <bean id="lord" class="springbackwell.model.Attainment" c:id="1" c:attainmentName="lord"/>
+    <bean id="lord" class="springbackwell.model.Attainment" c:id="${lord.id}" c:attainmentName="${lord.name}"/>
 
     <bean id="thunderer" class="springbackwell.model.Attainment" c:id="2" c:attainmentName="thunderer"/>
 
@@ -20,50 +23,48 @@
     <bean id="medic" class="springbackwell.model.Attainment" c:id="4" c:attainmentName="medic"/>
 
     <bean id="myh" class="springbackwell.model.Player" init-method="initPlayer" destroy-method="destroyPlayer"
-          p:id="1" p:login="myhin_XD" p:name="Anton" >
-        <property name="attainments" ref="anton.attainments"/>
+          p:id="${myh.id}" p:login="${myh.login}" p:name="${myh.name}" >
+        <property name="attainments" value="#{${myh.attainment}}"/>
     </bean>
 
-    <util:set id="anton.attainments">
-        <ref bean="killer"/>
-        <ref bean="lord"/>
-    </util:set>
+    <util:set id="anton.attainments" value-type="${myh.attainment}"/>
 
-    <bean id="lis" class="springbackwell.model.Player" init-method="initPlayer" destroy-method="destroyPlayer" p:id="2" p:login="Lis" p:name="Sergey">
-        <property name="attainments" ref="Sergey.attainments"/>
+
+    <bean id="lis" class="springbackwell.model.Player" init-method="initPlayer" destroy-method="destroyPlayer"
+          p:id="${lis.id}" p:login="${lis.login}" p:name="${lis.name}">
+        <property name="attainments" value="#{${lis.attainment}}"/>
     </bean>
 
-    <util:set id="Sergey.attainments">
-        <ref bean="medic"/>
-        <ref bean="lord"/>
-    </util:set>
 
-    <bean id="admin" class="springbackwell.model.GameAdmin" init-method="initAdmin" c:id="0" c:name="Viktor" c:login="Dark_Angel">
-        <property name="attainments" ref="admin.attainments"/>
-        <property name="function" ref="admin.function"/>
+
+    <bean id="admin" class="springbackwell.model.GameAdmin" init-method="initAdmin"
+          c:id="${admin.id}" c:name="${admin.name}" c:login="${admin.login}">
+       <property name="attainments" value="#{${admin.attainment}}" />
+        <property name="function"  value="#{${admin.functions}}"/>
     </bean>
 
-    <util:set id="admin.attainments">
-        <ref bean="medic"/>
-        <ref bean="thunderer"/>
-        <ref bean="lord"/>
-        <ref bean="killer"/>
-    </util:set>
+<!--    <util:set id="admin.attainments" >-->
+<!--        <value type="#{${admin.attainment}}"/>-->
+<!--    </util:set>-->
 
-  <util:map id="admin.function" >
+
+      <util:map id="admin.function" >
       <entry key="100" value="Ban"/>
       <entry key="200" value="Kill"/>
       <entry key="300" value="RestartGame"/>
   </util:map>
 
-    <bean id="stalkergame" class="springbackwell.model.Game" init-method="initGame" destroy-method="destroyGame" c:id="1" c:name="S/T/A/L/K/E/R"
-        p:gameAdmin="admin">
-        <property name="players" ref="stalker.players"/>
+    <bean id="stalkergame" class="springbackwell.model.Game" init-method="initGame" destroy-method="destroyGame"
+          c:id="${stalker.id}" c:name="${stalker.name}">
+        <property name="gameAdmin" ref="admin"/>
+        <property name="players" value="#{${stalker.players.prop}}" />
     </bean>
-    <util:map id="stalker.players" >
-        <entry key-ref="lis" value-ref="Sergey.attainments"/>
-        <entry key-ref="myh" value-ref="anton.attainments"/>
-        <entry key-ref="admin" value-ref="admin.attainments"/>
-    </util:map>
+
+
+<!--    <util:map id="stalker.players" >-->
+<!--        <entry key-ref="lis" value="sergey.attainments"/>-->
+<!--        <entry key-ref="myh" value="anton.attainments"/>-->
+<!--        <entry key-ref="admin" value="admin.attainments"/>-->
+<!--    </util:map>-->
 
 </beans>
