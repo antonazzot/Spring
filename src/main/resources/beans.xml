@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+       default-autowire="byType"
+>
+    <context:property-placeholder location="players.properties, game.properties,
+     attainments.properties, admin.function.properties"/>
+    <context:annotation-config></context:annotation-config>
+
+    <bean id="lord" class="springbackwell.model.Attainment" c:id="${lord.id}" c:attainmentName="${lord.name}"/>
+
+    <bean id="thunderer" class="springbackwell.model.Attainment" c:id="#{T(java.lang.Math).random()*100}" c:attainmentName="thunderer"/>
+
+    <bean id="killer" class="springbackwell.model.Attainment" c:id="#{thunderer.id+1}" c:attainmentName="killer" />
+
+    <bean id="medic" class="springbackwell.model.Attainment" c:id="#{myh.id+killer.id}" c:attainmentName="medic"/>
+
+    <bean id="myh" class="springbackwell.model.Player"  init-method="initPlayer" destroy-method="destroyPlayer"
+          p:id="${myh.id}" p:login="${myh.login}" p:name="${myh.name}" >
+        <qualifier type="springbackwell.qualifier.CustomStringQualifier" >
+            <attribute key="name" value="MMY"/>
+        </qualifier>
+        <property name="attainments" value="#{${myh.attainment}}"/>
+    </bean>
+
+    <util:set id="anton.attainments" value-type="${myh.attainment}"/>
+
+
+    <bean id="lis" class="springbackwell.model.Player" init-method="initPlayer" destroy-method="destroyPlayer"
+          p:id="${lis.id}" p:login="${lis.login}" p:name="${lis.name}">
+<!--        <qualifier value="Serg"/>-->
+        <qualifier type="springbackwell.qualifier.CustomStringQualifier" >
+            <attribute key="name" value="Serg"/>
+        </qualifier>
+        <property name="attainments" value="#{${lis.attainment}}"/>
+    </bean>
+
+
+
+    <bean id="admin" class="springbackwell.model.GameAdmin" init-method="initAdmin"
+          c:id="${admin.id}" c:name="${admin.name}" c:login="${admin.login}">
+        <qualifier type="springbackwell.qualifier.AdminQualifier"/>
+        <property name="attainments" value="#{${admin.attainment}}" />
+<!--        <property name="function"  value="#{${admin.functions}}"/>-->
+        <property name="function"  ref="admin.function"/>
+    </bean>
+
+<!--    <util:set id="admin.attainments" >-->
+<!--        <value type="#{${admin.attainment}}"/>-->
+<!--    </util:set>-->
+
+
+      <util:map id="admin.function" >
+      <entry key="100" value="Ban"/>
+      <entry key="200" value="Kill"/>
+      <entry key="300" value="RestartGame"/>
+      <entry key="400" value="#{myh.getLogin().substring(0,3).toUpperCase()}"/>
+      </util:map>
+
+    <bean id="stalkergame" class="springbackwell.model.Game" autowire="byName"  init-method="initGame" destroy-method="destroyGame"
+          c:id="${stalker.id}" c:name="${stalker.name}">
+<!--        <property name="gameAdmin" ref="admin"/>-->
+        <property name="players" ref="stalker.players" />
+    </bean>
+
+
+    <util:map id="stalker.players" >
+        <entry key-ref="lis" value="#{${lis.attainment}}"/>
+        <entry key-ref="myh" value="#{${myh.attainment}}"/>
+        <entry key-ref="admin" value="#{${admin.attainment}}"/>
+    </util:map>
+
+</beans>
