@@ -38,7 +38,7 @@ public class PlayersBeanConfig {
         return new Player(id, name, login, lisAttainment);
     }
     @CustomClassQualifier(clazz = GameAdmin.class)
-    @Bean
+    @Bean ("Victor")
     public GameAdmin admin (@Value("#{${admin.attainment}}")Set <Attainment> adminAttainment,@Value("${admin.id}") int id, @Value("${admin.name}") String name, @Value("${admin.login}") String login) {
         return new GameAdmin(id, name, login, adminAttainment, adminFunction);
     }

@@ -36,11 +36,11 @@ public class AttainmentsBeanConfig {
 //        return set;
         return Set.of(lord,killer);
     }
-
+    @Bean
     public Set <Attainment> lisAttainment (Attainment medic, Attainment thunderer) {
         return Set.of(medic,thunderer);
     }
-
+    @Bean
     public Set <Attainment> adminAttainment (Attainment lord, Attainment killer, Attainment thunderer) {
         return Set.of(lord, killer, thunderer);
     }

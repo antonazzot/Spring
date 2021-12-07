@@ -21,21 +21,21 @@ import java.util.Set;
 @Import({AttainmentsBeanConfig.class, PlayersBeanConfig.class})
 @PropertySource({"classpath:game.properties"})
 public class GameBeanConfig {
-    @Autowired
-    @LisQualifier
-    private Player player1;
-    @Autowired
-    @CustomStringQualifier(name = "ANT")
-    private Player player2;
-    @CustomClassQualifier(clazz = GameAdmin.class)
-    @Autowired
-    private Player player3;
-    @Autowired
-    @AdminQualifier
-    private Player gameAdmin;
-    @Bean
-    public Game stalker (@Value("${stalker.id}") int id, @Value("${stalker.name}") String name) {
-       return new Game(id, name, Map.of(player1, player1.getAttainments(), player2, player2.getAttainments(),
-               player3, player3.getAttainments()), gameAdmin);
-    }
+//    @Autowired
+//    @LisQualifier
+//    private Player player1;
+//    @Autowired
+//    @CustomStringQualifier(name = "ANT")
+//    private Player player2;
+//    @CustomClassQualifier(clazz = GameAdmin.class)
+//    @Autowired
+//    private Player player3;
+//    @Autowired
+//    @AdminQualifier
+//    private GameAdmin gameAdmin;
+//    @Bean
+//    public Game stalker (@Value("${stalker.id}") int id, @Value("${stalker.name}") String name) {
+//       return new Game(id, name, Map.of(player1, player1.getAttainments(), player2, player2.getAttainments(),
+//               player3, player3.getAttainments()), gameAdmin);
+//    }
 }
