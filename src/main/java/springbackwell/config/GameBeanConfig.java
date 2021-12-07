@@ -19,17 +19,18 @@ import java.util.Set;
 @Import({AttainmentsBeanConfig.class, PlayersBeanConfig.class})
 @PropertySource({"classpath:game.properties"})
 public class GameBeanConfig {
-    @Autowired
-    @Qualifier("lis")
     private Player player;
-    @Autowired
-    @Qualifier("myh")
     private Player player1;
-    @Autowired
-    @Qualifier("admin")
     private Player player2;
-    @Autowired
     private GameAdmin admin;
+
+    public GameBeanConfig( @Autowired @Qualifier("lis")Player player,@Autowired @Qualifier("myh")Player player1, @Autowired @Qualifier("admin") Player player2, @Autowired GameAdmin admin) {
+        this.player = player;
+        this.player1 = player1;
+        this.player2 = player2;
+        this.admin = admin;
+    }
+
     @Bean
     public Game stalker (@Value("${stalker.id}") int id, @Value("${stalker.name}") String name) {
        return new Game(id, name, Map.of(player, player.getAttainments(), player1, player1.getAttainments(), player2, player2.getAttainments()), admin);
