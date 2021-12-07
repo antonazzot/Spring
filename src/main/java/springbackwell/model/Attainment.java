@@ -2,6 +2,7 @@ package springbackwell.model;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.springframework.stereotype.Component;
 
 @SuperBuilder
 @NoArgsConstructor
@@ -9,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 @Data
 @ToString
 @EqualsAndHashCode
-
+@Component
 public class Attainment {
 
     private int id;

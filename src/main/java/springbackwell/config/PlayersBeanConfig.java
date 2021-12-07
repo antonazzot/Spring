@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 import springbackwell.model.Attainment;
 import springbackwell.model.GameAdmin;
 import springbackwell.model.Player;
@@ -16,6 +17,7 @@ import java.util.Map;
 import java.util.Set;
 @Import(AttainmentsBeanConfig.class)
 @PropertySource({"classpath:admin.function.properties", "classpath:players.properties"})
+
 public class PlayersBeanConfig {
 
     @Value("#{${admin.functions}}")

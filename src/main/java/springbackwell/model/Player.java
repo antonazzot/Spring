@@ -1,6 +1,7 @@
 package springbackwell.model;
 
 import lombok.*;
+import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
@@ -10,9 +11,8 @@ import java.util.Set;
 @EqualsAndHashCode
 @ToString
 @Builder
-
+@Component
 public class Player {
-
     private int id;
     private String name;
     private String login;

@@ -1,6 +1,8 @@
 package springbackwell.model;
 
 import lombok.*;
+import org.springframework.stereotype.Component;
+
 import java.util.Map;
 import java.util.Set;
 
@@ -9,7 +11,7 @@ import java.util.Set;
 @Data
 @EqualsAndHashCode
 @ToString
-
+@Component
 public class GameAdmin extends Player{
 
     public GameAdmin(int id, String name, String login) {

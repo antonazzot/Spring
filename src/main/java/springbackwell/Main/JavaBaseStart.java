@@ -9,7 +9,7 @@ import springbackwell.model.Player;
 
 public class JavaBaseStart {
     public static void main(String[] args) {
-        ConfigurableApplicationContext ctx = new AnnotationConfigApplicationContext(GameBeanConfig.class);
+        ConfigurableApplicationContext ctx = new AnnotationConfigApplicationContext("springbackwell");
         Game stalker = ctx.getBean("stalker", Game.class);
         System.out.println(stalker);
     }

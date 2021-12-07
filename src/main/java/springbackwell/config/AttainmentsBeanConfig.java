@@ -3,12 +3,14 @@ package springbackwell.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 import springbackwell.model.Attainment;
 
 import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Set;
 @PropertySource({"classpath:attainments.properties"})
+
 public class AttainmentsBeanConfig {
     @Bean
     public Attainment lord (@Value("${lord.id}")  int id, @Value("${lord.name}")  String lordNam) {
@@ -34,11 +36,11 @@ public class AttainmentsBeanConfig {
 //        return set;
         return Set.of(lord,killer);
     }
-    @Bean
+
     public Set <Attainment> lisAttainment (Attainment medic, Attainment thunderer) {
         return Set.of(medic,thunderer);
     }
-    @Bean
+
     public Set <Attainment> adminAttainment (Attainment lord, Attainment killer, Attainment thunderer) {
         return Set.of(lord, killer, thunderer);
     }
