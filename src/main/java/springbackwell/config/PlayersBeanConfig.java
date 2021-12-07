@@ -22,15 +22,15 @@ public class PlayersBeanConfig {
     private Map <Integer, String > adminFunction;
 
     @Bean
-    public Player myh (@Qualifier("myhAttainment") Set <Attainment> myhAttainment, @Value("${myh.id}") int id, @Value("${myh.name}") String name, @Value("${myh.login}") String login) {
+    public Player myh (@Value("#{${myh.attainment}}") Set <Attainment> myhAttainment, @Value("${myh.id}") int id, @Value("${myh.name}") String name, @Value("${myh.login}") String login) {
         return new Player(id, name, login, myhAttainment);
     }
     @Bean
-    public Player lis (@Qualifier("lisAttainment")Set <Attainment> lisAttainment, @Value("${lis.id}") int id, @Value("${lis.name}") String name, @Value("${lis.login}") String login) {
+    public Player lis (@Value("#{${lis.attainment}}")Set <Attainment> lisAttainment, @Value("${lis.id}") int id, @Value("${lis.name}") String name, @Value("${lis.login}") String login) {
         return new Player(id, name, login, lisAttainment);
     }
     @Bean
-    public GameAdmin admin (@Qualifier("adminAttainment")Set <Attainment> adminAttainment,@Value("${admin.id}") int id, @Value("${admin.name}") String name, @Value("${admin.login}") String login) {
+    public GameAdmin admin (@Value("#{${admin.attainment}}")Set <Attainment> adminAttainment,@Value("${admin.id}") int id, @Value("${admin.name}") String name, @Value("${admin.login}") String login) {
         return new GameAdmin(id, name, login, adminAttainment, adminFunction);
     }
 }
