@@ -1,8 +1,12 @@
 package springbackwell.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
 import springbackwell.model.Attainment;
 import springbackwell.model.GameAdmin;
 import springbackwell.model.Player;
@@ -11,26 +15,22 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 @Import(AttainmentsBeanConfig.class)
+@PropertySource({"classpath:admin.function.properties", "classpath:players.properties"})
 public class PlayersBeanConfig {
+
+    @Value("#{${admin.functions}}")
+    private Map <Integer, String > adminFunction;
+
     @Bean
-    public Player myh (AttainmentsBeanConfig lord, AttainmentsBeanConfig meedic) {
-        Player player = new Player(1, "Anton", "Myh_l");
-        Set <Attainment> attainments = Set.of(lord.lord(), meedic.medic());
-        player.setAttainments(attainments);
-        return player;
+    public Player myh (@Qualifier("myhAttainment") Set <Attainment> myhAttainment, @Value("${myh.id}") int id, @Value("${myh.name}") String name, @Value("${myh.login}") String login) {
+        return new Player(id, name, login, myhAttainment);
     }
     @Bean
-    public Player lis (AttainmentsBeanConfig thunderer, AttainmentsBeanConfig killer) {
-        Player player = new Player(2, "Sergey", "Lis");
-        Set <Attainment> attainments = Set.of(thunderer.thunderer(), killer.killer());
-        player.setAttainments(attainments);
-        return player;
+    public Player lis (@Qualifier("lisAttainment")Set <Attainment> lisAttainment, @Value("${lis.id}") int id, @Value("${lis.name}") String name, @Value("${lis.login}") String login) {
+        return new Player(id, name, login, lisAttainment);
     }
     @Bean
-    public GameAdmin admin (AttainmentsBeanConfig lord, AttainmentsBeanConfig medic, AttainmentsBeanConfig thunderer) {
-        GameAdmin player = new GameAdmin(10, "Victor", "Dark_Angel");
-        player.setAttainments(Set.of(lord.lord(), medic.medic(), thunderer.thunderer()));
-        player.setFunction(Map.of(1,"Ban", 2, "Rastart"));
-        return player;
+    public GameAdmin admin (@Qualifier("adminAttainment")Set <Attainment> adminAttainment,@Value("${admin.id}") int id, @Value("${admin.name}") String name, @Value("${admin.login}") String login) {
+        return new GameAdmin(id, name, login, adminAttainment, adminFunction);
     }
 }
