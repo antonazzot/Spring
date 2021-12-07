@@ -17,9 +17,8 @@ public class Game {
     private String name;
 
     private Map <Player, Set<Attainment>> players;
-    @Autowired
-    @Qualifier ("admin")
-    private Player admin;
+
+    private GameAdmin admin;
 
     public Game(int id, String name, Map<Player, Set<Attainment>> players) {
         this.id = id;

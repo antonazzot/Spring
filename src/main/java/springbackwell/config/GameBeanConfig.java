@@ -19,7 +19,7 @@ import java.util.Set;
 @PropertySource({"classpath:game.properties"})
 public class GameBeanConfig {
     @Bean
-    public Game stalker (@Qualifier("lis") Player player,@Qualifier ("myh") Player player1, @Qualifier ("admin") Player player2,  Player admin, @Value("${stalker.id}") int id, @Value("${stalker.name}") String name) {
-       return new Game(id, name, Map.of(player, player.getAttainments(), player1, player1.getAttainments(), player2, player2.getAttainments()), admin);
+    public Game stalker (@Qualifier("lis") Player player,@Qualifier ("myh") Player player1, @Qualifier ("admin") Player player2,  GameAdmin player3, @Value("${stalker.id}") int id, @Value("${stalker.name}") String name) {
+       return new Game(id, name, Map.of(player, player.getAttainments(), player1, player1.getAttainments(), player2, player2.getAttainments()), player3);
     }
 }
