@@ -9,6 +9,10 @@ import springbackwell.model.Attainment;
 import springbackwell.model.Game;
 import springbackwell.model.GameAdmin;
 import springbackwell.model.Player;
+import springbackwell.qualifiers.AdminQualifier;
+import springbackwell.qualifiers.CustomClassQualifier;
+import springbackwell.qualifiers.CustomStringQualifier;
+import springbackwell.qualifiers.LisQualifier;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,14 +22,20 @@ import java.util.Set;
 @PropertySource({"classpath:game.properties"})
 public class GameBeanConfig {
     @Autowired
-    private Player lis;
+    @LisQualifier
+    private Player player1;
     @Autowired
-    private Player myh;
+    @CustomStringQualifier(name = "ANT")
+    private Player player2;
+    @CustomClassQualifier(clazz = GameAdmin.class)
     @Autowired
-    private Player admin;
-    private GameAdmin gameAdmin;
+    private Player player3;
+    @Autowired
+    @AdminQualifier
+    private Player gameAdmin;
     @Bean
     public Game stalker (@Value("${stalker.id}") int id, @Value("${stalker.name}") String name) {
-       return new Game(id, name, Map.of(lis, lis.getAttainments(), myh, myh.getAttainments(), admin, admin.getAttainments()), gameAdmin);
+       return new Game(id, name, Map.of(player1, player1.getAttainments(), player2, player2.getAttainments(),
+               player3, player3.getAttainments()), gameAdmin);
     }
 }

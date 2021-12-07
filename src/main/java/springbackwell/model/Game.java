@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
+import springbackwell.qualifiers.AdminQualifier;
+import springbackwell.qualifiers.LisQualifier;
 
 import java.util.Map;
 import java.util.Set;
@@ -25,8 +27,9 @@ public class Game {
     private String name;
 
     private Map <Player, Set<Attainment>> players;
-    @Autowired
-    private GameAdmin admin;
+//    @Autowired
+//    @LisQualifier
+    private Player admin;
 
     public Game(int id, String name, Map<Player, Set<Attainment>> players) {
         this.id = id;
