@@ -24,10 +24,23 @@ public class GameBeanConfig {
     private Player player2;
     private GameAdmin admin;
 
-    public GameBeanConfig( @Autowired @Qualifier("lis")Player player,@Autowired @Qualifier("myh")Player player1, @Autowired @Qualifier("admin") Player player2, @Autowired GameAdmin admin) {
+    @Autowired
+    @Qualifier("lis")
+    public void setPlayer( Player player) {
         this.player = player;
+    }
+    @Autowired
+    @Qualifier("myh")
+    public void setPlayer1( Player player1) {
         this.player1 = player1;
+    }
+    @Autowired
+    @Qualifier("admin")
+    public void setPlayer2( Player player2) {
         this.player2 = player2;
+    }
+    @Autowired
+    public void setAdmin( GameAdmin admin) {
         this.admin = admin;
     }
 

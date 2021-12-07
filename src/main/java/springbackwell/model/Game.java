@@ -17,7 +17,6 @@ public class Game {
     private String name;
 
     private Map <Player, Set<Attainment>> players;
-
     private GameAdmin admin;
 
     public Game(int id, String name, Map<Player, Set<Attainment>> players) {
